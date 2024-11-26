@@ -14,12 +14,18 @@ $data = json_decode($json, true);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Nationality Statistics</title>
+
+    <!-- usage of PICO CSS     -->
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.5.6/css/pico.min.css">
+    
 </head>
 <body>
     <main class="container">
         <h1 style="text-align: center;">Student Nationality Statistics</h1>
+        
+        <!-- beginning of table -->
         <table>
+            <!-- table header fields -->
             <thead style="text-align: center;">
                 <tr>
                     <th>Year</th>
@@ -29,8 +35,14 @@ $data = json_decode($json, true);
                     <th>Number of Students</th>
                 </tr>
             </thead>
+
+            <!-- table values -->
             <tbody>
+
+                <!-- ensuring data and values of table are not null  -->
                 <?php if ($data && isset($data['results'])): ?>
+
+                    <!-- foreach loop to loop through table values and print them if exist -->
                     <?php foreach ($data['results'] as $result): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($result['year']); ?></td>
@@ -39,9 +51,10 @@ $data = json_decode($json, true);
                         <td><?php echo htmlspecialchars($result['nationality']); ?></td>
                         <td><?php echo htmlspecialchars($result['number_of_students']); ?></td>
                     </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
+                    <?php endforeach; ?> <!--  end of foreach loop -->
+                <?php else: ?> <!-- condition in case data is not found  -->
                     <tr>
+                        <!-- message to be printed in case data is not found -->
                         <td colspan="5">No data found.</td>
                     </tr>
                 <?php endif; ?>
