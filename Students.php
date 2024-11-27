@@ -15,9 +15,30 @@ $data = json_decode($json, true);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Nationality Statistics</title>
 
-    <!-- usage of PICO CSS     -->
+    <!-- usage of PICO CSS -->
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.5.6/css/pico.min.css">
-    
+
+    <style>
+        /* Center the main title */
+        h1 {
+            text-align: center;
+        }
+
+        /* Make table headers bold */
+        th {
+            font-weight: bold;
+        }
+
+        /* Prevent text from wrapping to a new line in table cells */
+        td, th {
+            white-space: nowrap;
+        }
+
+        /* Alternate row color for even rows */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <main class="container">
@@ -32,6 +53,7 @@ $data = json_decode($json, true);
                     <th>Semester</th>
                     <th>Program</th>
                     <th>Nationality</th>
+                    <th>Colleges</th>
                     <th>Number of Students</th>
                 </tr>
             </thead>
@@ -39,23 +61,24 @@ $data = json_decode($json, true);
             <!-- table values -->
             <tbody>
 
-                <!-- ensuring data and values of table are not null  -->
+                <!-- ensuring data and values of table are not null -->
                 <?php if ($data && isset($data['results'])): ?>
 
                     <!-- foreach loop to loop through table values and print them if exist -->
                     <?php foreach ($data['results'] as $result): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($result['year']); ?></td>
-                        <td><?php echo htmlspecialchars($result['semester']); ?></td>
-                        <td><?php echo htmlspecialchars($result['the_programs']); ?></td>
-                        <td><?php echo htmlspecialchars($result['nationality']); ?></td>
-                        <td><?php echo htmlspecialchars($result['number_of_students']); ?></td>
+                        <td><?php echo htmlspecialchars($result['year'] ?? 'N/A'); ?></td>
+                        <td><?php echo htmlspecialchars($result['semester'] ?? 'N/A'); ?></td>
+                        <td><?php echo htmlspecialchars($result['the_programs'] ?? 'N/A'); ?></td>
+                        <td><?php echo htmlspecialchars($result['nationality'] ?? 'N/A'); ?></td>
+                        <td><?php echo htmlspecialchars($result['colleges'] ?? 'N/A'); ?></td>
+                        <td><?php echo htmlspecialchars($result['number_of_students'] ?? 'N/A'); ?></td>
                     </tr>
-                    <?php endforeach; ?> <!--  end of foreach loop -->
-                <?php else: ?> <!-- condition in case data is not found  -->
+                    <?php endforeach; ?> <!-- end of foreach loop -->
+                <?php else: ?> <!-- condition in case data is not found -->
                     <tr>
                         <!-- message to be printed in case data is not found -->
-                        <td colspan="5">No data found.</td>
+                        <td colspan="6">No data found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
